@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+</head>
+<body>
+<h1>Books</h1>
+    <ul>
+        {% for book in books %}
+            <li>
+            <strong>{{ book.title }}</strong><br>
+            Author: {{ book.author.name }}<br>
+            Genres:
+            {% for genre in book.genres.all %}
+                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+            <br><br>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
