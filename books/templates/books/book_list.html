@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1>Books</h1>
+    <p><a href="{% url 'book_create' %}">Add Book</a></p>
     <ul>
         {% for book in books %}
             <li>
