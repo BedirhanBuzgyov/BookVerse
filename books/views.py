@@ -28,3 +28,23 @@ def book_create(request: HttpRequest):
         form = BookForm()
 
     return render(request, "books/book_form.html", {"form": form})
+
+
+def book_edit(request: HttpRequest, id) -> HttpResponse:
+    book = get_object_or_404(Book, id=id)
+
+    if request.method == "POST":
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect("book_detail", id=book.id)
+    else:
+        form = BookForm(instance=book)
+
+    return render(request, "books/book_form.html", {"form": form, "book": book})
+
+
+def book_delete(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.delete()
+    return redirect("book_list")
