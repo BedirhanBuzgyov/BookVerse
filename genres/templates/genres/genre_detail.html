@@ -1,0 +1,23 @@
+{#{% extends "base.html" %}#}
+
+{% block title %}Genre Details{% endblock %}
+
+{% block content %}
+<section class="details-section">
+    <div class="details-card">
+        <h1>{{ genre.name }}</h1>
+
+        {% if genre.description %}
+            <p><strong>Description:</strong> {{ genre.description }}</p>
+        {% else %}
+            <p><strong>Description:</strong> No biography available.</p>
+        {% endif %}
+
+        <div class="details-actions">
+{#            <a href="{% url 'genre_edit' author.id %}" class="btn">Edit</a>#}
+{#            <a href="{% url 'genre_delete' author.id %}" class="btn">Delete</a>#}
+            <a href="{% url 'genre_list' %}" class="btn">Back</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

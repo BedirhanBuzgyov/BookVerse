@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Genres</title>
+</head>
+<body>
+    <h1>Genres</h1>
+{#    <a href="{% url "genre_create"%}">Add</a>#}
+        <ul>
+            {% for genre in genres %}
+                <li>
+                    <a href={% url "genre_detail" genre.id%}>
+                        {{ genre.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    <p><a href="/">← Back to Home</a></p>
+</body>
+</html>
