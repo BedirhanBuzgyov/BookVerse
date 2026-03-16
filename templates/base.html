@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BookVerse{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'homepage/css/styles.css' %}">
+</head>
+
+<body>
+
+<nav class="top-nav">
+    <div class="logo">
+        <a href="{% url 'home' %}">BookVerse</a>
+    </div>
+
+    <div class="nav-links">
+        <a href="{% url 'book_list' %}">Books</a>
+        <a href="{% url 'author_list' %}">Authors</a>
+    </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<footer>
+    <p>BookVerse © 2026</p>
+</footer>
+
+</body>
+</html>

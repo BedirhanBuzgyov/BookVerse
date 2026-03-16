@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}BookVerse — Home{% endblock %}
+
+{% block content %}
+
+<header class="hero">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1>Welcome to <span>BookVerse</span></h1>
+        <p>Your gateway to books, authors, and genres.</p>
+
+        <div class="buttons">
+            <a href="{% url 'book_list' %}" class="btn">Browse Books</a>
+            <a href="{% url 'author_list' %}" class="btn">Authors</a>
+        </div>
+    </div>
+</header>
+
+<section class="features">
+    <div class="feature">
+        <h2>📚 Explore Books</h2>
+        <p>Browse all available books and discover new favorites.</p>
+    </div>
+
+    <div class="feature">
+        <h2>✍️ Meet the Authors</h2>
+        <p>Learn more about the authors behind your favorite stories.</p>
+    </div>
+
+    <div class="feature">
+        <h2>🏷️ Discover Genres</h2>
+        <p>Find books by genre and explore categories you love.</p>
+    </div>
+</section>
+
+{% endblock %}
