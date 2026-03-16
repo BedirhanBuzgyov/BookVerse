@@ -28,8 +28,8 @@
         {% endif %}
 
         <div class="details-actions">
-{#            <a href="{% url '#' author.id %}" class="btn">Edit</a>#}
-{#            <a href="{% url '#' author.id %}" class="btn">Delete</a>#}
+            <a href="{% url 'author_edit' author.id %}" class="btn">Edit</a>
+            <a href="{% url 'author_delete' author.id %}" class="btn">Delete</a>
             <a href="{% url 'author_list' %}" class="btn">Back</a>
         </div>
     </div>
