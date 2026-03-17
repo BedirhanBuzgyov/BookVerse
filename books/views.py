@@ -46,5 +46,8 @@ def book_edit(request: HttpRequest, id) -> HttpResponse:
 
 def book_delete(request, id):
     book = get_object_or_404(Book, id=id)
-    book.delete()
-    return redirect("book_list")
+    if request.method == "POST":
+        book.delete()
+        return redirect("book_list")
+
+    return render(request, "books/book_delete.html", {"book": book})

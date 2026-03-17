@@ -1,0 +1,18 @@
+{#{% extends "base.html" %}#}
+
+{% block title %}Delete Author{% endblock %}
+
+{% block content %}
+<section class="details-section">
+    <div class="details-card">
+        <h1>Delete Author</h1>
+        <p>Are you sure you want to delete "{{ author.name }}"?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn">Confirm Delete</button>
+            <a href="{% url 'author_detail' author.id %}" class="btn">Cancel</a>
+        </form>
+    </div>
+</section>
+{% endblock %}
