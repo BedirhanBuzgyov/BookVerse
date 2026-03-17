@@ -13,8 +13,12 @@ def author_detail(request: HttpRequest, id) -> HttpResponse:
         Author, id=id
     )
     books = author.book_set.all()
+    context = {
+        "author": author,
+        "books": books,
+    }
 
-    return render(request, "authors/author_detail.html", {"author": author})
+    return render(request, "authors/author_detail.html", context)
 
 def author_create(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
