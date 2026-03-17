@@ -1,3 +1,5 @@
+{% load custom_filters %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,6 +15,9 @@
                     <a href={% url 'author_detail' author.id%}>
                         {{ author.name }}
                     </a>
+                    <p>
+                        {{ book.description|short_text:120 }}
+                    </p>
                 </li>
             {% endfor %}
         </ul>
