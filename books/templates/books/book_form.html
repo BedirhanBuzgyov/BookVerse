@@ -10,8 +10,38 @@
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+
+    <p>
+        {{ form.title.label_tag }}<br>
+        {{ form.title }}
+    </p>
+
+    <p>
+        {{ form.description.label_tag }}<br>
+        {{ form.description }}
+    </p>
+
+    <p>
+        {{ form.author.label_tag }}<br>
+        {{ form.author }}
+
+        <br>
+        <a href="{% url 'author_create' %}" target="_blank">
+            ➕ Add new author
+        </a>
+    </p>
+
+    <p>
+        {{ form.genres.label_tag }}<br>
+        {{ form.genres }}
+
+        <br>
+        <a href="{% url 'genre_create' %}" target="_blank">
+            ➕ Add new genre
+        </a>
+    </p>
+
+    <button type="submit">Create</button>
 </form>
 
 <p><a href="{% url 'book_list' %}">← Back to list</a></p>
