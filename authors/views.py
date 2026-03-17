@@ -46,5 +46,8 @@ def author_edit(request: HttpRequest, id) -> HttpResponse:
 
 def author_delete(request: HttpRequest, id) -> HttpResponse:
     author = get_object_or_404(Author, id=id)
-    author.delete()
-    return redirect("author_list")
+    if request.method == "POST":
+        author.delete()
+        return redirect("author_list")
+
+    return render(request, "authors/author_delete.html", {"author": author})
