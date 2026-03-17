@@ -1,0 +1,52 @@
+.genres-page {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.genre-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.genre-card h2 {
+    margin-bottom: 12px;
+}
+
+.genre-card p {
+    color: #666;
+    line-height: 1.5;
+}
+
+.genre-detail-box {
+    width: 90%;
+    max-width: 850px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.related-list {
+    margin-top: 18px;
+    padding-left: 20px;
+}
+
+.related-list li {
+    margin-bottom: 8px;
+}

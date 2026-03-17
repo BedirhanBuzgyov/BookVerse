@@ -1,13 +1,21 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.core.paginator import Paginator
 from genres.forms import GenreForm
 from genres.models import Genre
 
 
-def genre_list(request: HttpRequest) -> HttpResponse:
+def genre_list(request):
     genres = Genre.objects.all()
-    return render(request, "genres/genre_list.html", {"genres": genres})
+
+    paginator = Paginator(genres, 10)
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "genres/genre_list.html", {
+        "page_obj": page_obj,
+    })
 
 def genre_detail(request: HttpRequest, id) -> HttpResponse:
     genre = get_object_or_404(

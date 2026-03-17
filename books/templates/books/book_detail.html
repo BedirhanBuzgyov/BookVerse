@@ -1,32 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Details</title>
-</head>
-<body>
-<h1>{{ book.title }}</h1>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Book Details{% endblock %}
 
-    <p><strong>Author:</strong> {{ book.author.name }}</p>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/books.css' %}">
+{% endblock %}
 
-    <p><strong>Genres:</strong>
+{% block content %}
+<section class="details-box">
+    <h1>{{ book.title }}</h1>
+
+    <p class="meta-text"><strong>Author:</strong> {{ book.author.name }}</p>
+    <p>{{ book.description }}</p>
+
+    <h3 style="margin-top: 20px;">Genres</h3>
+    <div class="badge-list">
         {% for genre in book.genres.all %}
-            {{ genre.name }}{% if not forloop.last %}, {% endif %}
+            <span class="badge">{{ genre.name }}</span>
+        {% empty %}
+            <span class="badge">No genres</span>
         {% endfor %}
-    </p>
+    </div>
 
-    <p>
-        <strong>
-            Description:
-        </strong>
-         {{ book.description }}
-    </p>
-
-<a href="{% url 'book_edit' book.id %}">Edit</a>
-
-<a href="{% url 'book_delete' book.id %}">Delete</a>
-
-<p><a href="/books/">← Back to list</a></p>
-
-</body>
-</html>
+    <div class="form-actions">
+        <a href="{% url 'book_edit' book.id %}" class="btn">Edit</a>
+        <a href="{% url 'book_delete' book.id %}" class="btn btn-secondary">Delete</a>
+        <a href="{% url 'book_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</section>
+{% endblock %}

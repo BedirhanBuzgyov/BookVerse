@@ -1,31 +1,34 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}BookVerse{% endblock %}</title>
 
-    <link rel="stylesheet" href="{% static 'homepage/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
-
 <body>
 
-<nav class="top-nav">
-    <div class="logo">
-        <a href="{% url 'home' %}">BookVerse</a>
-    </div>
+<nav class="site-nav">
+    <div class="nav-container">
+        <a class="logo" href="{% url 'home' %}">📚 BookVerse</a>
 
-    <div class="nav-links">
-        <a href="{% url 'book_list' %}">Books</a>
-        <a href="{% url 'author_list' %}">Authors</a>
-        <a href="{% url 'genre_list' %}">Genres</a>
+        <div class="nav-links">
+            <a href="{% url 'book_list' %}">Books</a>
+            <a href="{% url 'author_list' %}">Authors</a>
+            <a href="{% url 'genre_list' %}">Genres</a>
+        </div>
     </div>
 </nav>
 
-{% block content %}
-{% endblock %}
+<main class="page-content">
+    {% block content %}{% endblock %}
+</main>
 
-<footer>
+<footer class="site-footer">
     <p>BookVerse © 2026</p>
 </footer>
 

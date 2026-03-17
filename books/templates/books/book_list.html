@@ -1,26 +1,54 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Books</title>
-</head>
-<body>
-<h1>Books</h1>
-    <p><a href="{% url 'book_create' %}">Add Book</a></p>
-    <ul>
-        {% for book in books %}
-            <li>
-            <strong>{{ book.title }}</strong><br>
-            Author: {{ book.author.name }}<br>
-            Genres:
-            {% for genre in book.genres.all %}
-                {{ genre.name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-                <p><a href="{% url 'book_detail' book.id %}">See More</a></p>
-            <br><br>
-            </li>
-        {% endfor %}
-    </ul>
+{% extends "base.html" %}
+{% load custom_filters %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}Books{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/books.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="books-page">
+    <h1 class="section-title">All Books</h1>
+
+    <div class="form-actions" style="justify-content:center; margin-bottom: 25px;">
+        <a href="{% url 'book_create' %}" class="btn">Add Book</a>
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-secondary">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">Last</a>
+        {% endif %}
+    </div>
+
+
+    <div class="card-grid">
+        {% for book in page_obj %}
+            <article class="item-card">
+                <h2>{{ book.title }}</h2>
+                <p class="meta-text"><strong>Author:</strong> {{ book.author.name }}</p>
+                <p>{{ book.description|short_text:120 }}</p>
+
+                <div class="form-actions">
+                    <a href="{% url 'book_detail' book.id %}" class="btn">Details</a>
+                    <a href="{% url 'book_edit' book.id %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'book_delete' book.id %}" class="btn btn-secondary">Delete</a>
+                </div>
+            </article>
+        {% empty %}
+            <p>No books yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

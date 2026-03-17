@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}BookVerse — Home{% endblock %}
+{% block title %}BookVerse - Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
 {% block content %}
-
-<header class="hero">
-    <div class="overlay"></div>
-
+<section class="hero">
     <div class="hero-content">
         <h1>Welcome to <span>BookVerse</span></h1>
         <p>Your gateway to books, authors, and genres.</p>
@@ -18,7 +19,7 @@
             <a href="{% url 'genre_list' %}" class="btn">Genres</a>
         </div>
     </div>
-</header>
+</section>
 
 <section class="features">
     <div class="feature">
@@ -36,5 +37,4 @@
         <p>Find books by genre and explore categories you love.</p>
     </div>
 </section>
-
 {% endblock %}

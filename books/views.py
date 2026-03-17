@@ -2,11 +2,17 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Book
 from .forms import BookForm
+from django.core.paginator import Paginator
+def book_list(request):
+    books = Book.objects.all()
+    paginator = Paginator(books, 10)
 
-def book_list(request: HttpRequest) -> HttpResponse:
-    books = Book.objects.all().select_related("author").prefetch_related("genres")
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    return render(request, "books/book_list.html", {"books": books})
+    return render(request, "books/book_list.html", {
+        "page_obj": page_obj,
+    })
 
 
 def book_detail(request: HttpRequest, id) -> HttpResponse:

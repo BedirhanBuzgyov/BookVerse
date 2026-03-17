@@ -1,22 +1,58 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Genres</title>
-</head>
-<body>
-    <h1>Genres</h1>
-    <a href="{% url 'genre_create' %}">Add</a>
-        <ul>
-            {% for genre in genres %}
-                <li>
-                    <a href="{% url 'genre_detail' genre.id%}">
-                        {{ genre.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
 
-    <p><a href="/">← Back to Home</a></p>
-</body>
-</html>
+{% block title %}Genres{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/genres.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="genres-page">
+    <h1 class="section-title">All Genres</h1>
+
+    <div class="form-actions" style="justify-content:center; margin-bottom: 25px;">
+        <a href="{% url 'genre_create' %}" class="btn">Add Genre</a>
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-secondary">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">Last</a>
+        {% endif %}
+    </div>
+
+
+    <div class="card-grid">
+        {% for genre in page_obj %}
+            <article class="genre-card">
+                <h2>{{ genre.name }}</h2>
+
+                {% if genre.description %}
+                    <p>{{ genre.description|short_text:140 }}</p>
+                {% else %}
+                    <p>No description available.</p>
+                {% endif %}
+
+                <div class="form-actions">
+                    <a href="{% url 'genre_detail' genre.id %}" class="btn">Details</a>
+                    <a href="{% url 'genre_edit' genre.id %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'genre_delete' genre.id %}" class="btn btn-secondary">Delete</a>
+                </div>
+            </article>
+        {% empty %}
+            <p>No genres yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
