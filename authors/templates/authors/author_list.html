@@ -1,27 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
 {% load custom_filters %}
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Authors</title>
-</head>
-<body>
-    <h1>Authors</h1>
-    <a href="{% url 'author_create' %}">Add</a>
-        <ul>
-            {% for author in authors %}
-                <li>
-                    <a href={% url 'author_detail' author.id%}>
-                        {{ author.name }}
-                    </a>
-                    <p>
-                        {{ book.description|short_text:120 }}
-                    </p>
-                </li>
-            {% endfor %}
-        </ul>
+{% block title %}Authors{% endblock %}
 
-    <p><a href="/">← Back to Home</a></p>
-</body>
-</html>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/authors.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="authors-page">
+    <h1 class="section-title">All Authors</h1>
+
+    <div class="form-actions" style="justify-content:center; margin-bottom: 25px;">
+        <a href="{% url 'author_create' %}" class="btn">Add Author</a>
+    </div>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-secondary">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">Previous</a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">Last</a>
+        {% endif %}
+    </div>
+
+
+    <div class="card-grid">
+        {% for author in page_obj %}
+            <article class="author-card">
+                <h2>{{ author.name }}</h2>
+
+                {% if author.biography %}
+                    <p>{{ author.biography|short_text:140 }}</p>
+                {% else %}
+                    <p>No biography available.</p>
+                {% endif %}
+
+                <div class="form-actions">
+                    <a href="{% url 'author_detail' author.id %}" class="btn">Details</a>
+                    <a href="{% url 'author_edit' author.id %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'author_delete' author.id %}" class="btn btn-secondary">Delete</a>
+                </div>
+            </article>
+        {% empty %}
+            <p>No authors yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

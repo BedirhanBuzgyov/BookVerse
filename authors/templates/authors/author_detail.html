@@ -1,39 +1,38 @@
-{#{% extends "base.html" %}#}
-
+{% extends "base.html" %}
+{% load static %}
 {% block title %}Author Details{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/authors.css' %}">
+{% endblock %}
+
 {% block content %}
-<section class="details-section">
-    <div class="details-card">
-        <h1>{{ author.name }}</h1>
+<section class="author-detail-box">
+    <h1>{{ author.name }}</h1>
 
+    <p>
         {% if author.biography %}
-            <p><strong>Biography:</strong> {{ author.biography }}</p>
+            {{ author.biography }}
         {% else %}
-            <p><strong>Biography:</strong> No biography available.</p>
+            No biography available.
         {% endif %}
+    </p>
 
-        <h2>Books by this author</h2>
+    <h3 style="margin-top: 20px;">Books by this author</h3>
+    <ul class="related-list">
+        {% for book in books %}
+            <li>
+                <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+            </li>
+        {% empty %}
+            <li>No books by this author yet.</li>
+        {% endfor %}
+    </ul>
 
-        {% if books %}
-            <ul>
-                {% for book in books %}
-                    <li>
-                        <a href="{% url 'book_detail' book.id %}">
-                            {{ book.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No books added for this author yet.</p>
-        {% endif %}
-
-        <div class="details-actions">
-            <a href="{% url 'author_edit' author.id %}" class="btn">Edit</a>
-            <a href="{% url 'author_delete' author.id %}" class="btn">Delete</a>
-            <a href="{% url 'author_list' %}" class="btn">Back</a>
-        </div>
+    <div class="form-actions">
+        <a href="{% url 'author_edit' author.id %}" class="btn">Edit</a>
+        <a href="{% url 'author_delete' author.id %}" class="btn btn-secondary">Delete</a>
+        <a href="{% url 'author_list' %}" class="btn btn-secondary">Back</a>
     </div>
 </section>
 {% endblock %}

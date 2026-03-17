@@ -1,17 +1,30 @@
-{#{% extends "base.html" %}#}
+{% extends "base.html" %}
+{% load static %}
 
 {% block title %}Delete Genre{% endblock %}
 
 {% block content %}
-<section class="details-section">
-    <div class="details-card">
+<section class="delete-page">
+    <div class="delete-card">
         <h1>Delete Genre</h1>
-        <p>Are you sure you want to delete "{{ genre.name }}"?</p>
+
+        <p>
+            Are you sure you want to delete
+            <span class="delete-warning">{{ genre.name }}</span>?
+        </p>
 
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn">Confirm Delete</button>
-            <a href="{% url 'genre_detail' genre.id %}" class="btn">Cancel</a>
+
+            <div class="delete-actions">
+                <button type="submit" class="btn btn-danger">
+                    Confirm Delete
+                </button>
+
+                <a href="{% url 'genre_detail' genre.id %}" class="btn btn-secondary">
+                    Cancel
+                </a>
+            </div>
         </form>
     </div>
 </section>

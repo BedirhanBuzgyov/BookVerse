@@ -1,0 +1,141 @@
+.form-page {
+    width: 90%;
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.form-card {
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.form-card h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.helptext {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.errorlist {
+    list-style: none;
+    margin-top: 6px;
+    color: #b30000;
+    font-size: 0.9rem;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #ffcc00;
+    color: #222;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    background: #e6b800;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #222;
+}
+
+.btn-secondary:hover {
+    background: #cfcfcf;
+}
+
+.inline-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.92rem;
+}
+
+.delete-page {
+    width: 90%;
+    max-width: 600px;
+    margin: 60px auto;
+}
+
+.delete-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.delete-card h1 {
+    margin-bottom: 15px;
+    color: #b30000;
+}
+
+.delete-card p {
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 1.05rem;
+}
+
+.delete-warning {
+    font-weight: bold;
+    color: #b30000;
+}
+
+.delete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-danger {
+    background: #d9534f;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c9302c;
+}

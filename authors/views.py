@@ -1,12 +1,19 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
+from django.core.paginator import Paginator
 from .forms import AuthorForm
 from .models import Author
 
-def author_list(request: HttpRequest) -> HttpResponse:
+def author_list(request):
     authors = Author.objects.all()
-    return render(request, "authors/author_list.html", {"authors": authors})
+    paginator = Paginator(authors, 10)  # по 10 на страница
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, "authors/author_list.html", {
+        "page_obj": page_obj,
+    })
 
 def author_detail(request: HttpRequest, id) -> HttpResponse:
     author = get_object_or_404(

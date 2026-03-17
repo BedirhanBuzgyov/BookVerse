@@ -1,50 +1,59 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Book</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-<h1>Add Book</h1>
+{% block title %}Book Form{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
+{% block content %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>
+            {% if form.instance.pk %}
+                Edit Book
+            {% else %}
+                Create Book
+            {% endif %}
+        </h1>
 
-    <p>
-        {{ form.title.label_tag }}<br>
-        {{ form.title }}
-    </p>
+        <form method="post">
+            {% csrf_token %}
 
-    <p>
-        {{ form.description.label_tag }}<br>
-        {{ form.description }}
-    </p>
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
 
-    <p>
-        {{ form.author.label_tag }}<br>
-        {{ form.author }}
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
 
-        <br>
-        <a href="{% url 'author_create' %}" target="_blank">
-            ➕ Add new author
-        </a>
-    </p>
+            <div class="form-group">
+                {{ form.author.label_tag }}
+                {{ form.author }}
+                {% if form.author.help_text %}
+                    <small class="helptext">{{ form.author.help_text }}</small>
+                {% endif %}
+                {{ form.author.errors }}
+                <a href="{% url 'author_create' %}" target="_blank" class="inline-link">➕ Add new author</a>
+            </div>
 
-    <p>
-        {{ form.genres.label_tag }}<br>
-        {{ form.genres }}
+            <div class="form-group">
+                {{ form.genres.label_tag }}
+                {{ form.genres }}
+                {% if form.genres.help_text %}
+                    <small class="helptext">{{ form.genres.help_text }}</small>
+                {% endif %}
+                {{ form.genres.errors }}
+                <a href="{% url 'genre_create' %}" target="_blank" class="inline-link">➕ Add new genre</a>
+            </div>
 
-        <br>
-        <a href="{% url 'genre_create' %}" target="_blank">
-            ➕ Add new genre
-        </a>
-    </p>
-
-    <button type="submit">Create</button>
-</form>
-
-<p><a href="{% url 'book_list' %}">← Back to list</a></p>
-
-</body>
-</html>
+            <div class="form-actions">
+                <button type="submit" class="btn">Save</button>
+                <a href="{% url 'book_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

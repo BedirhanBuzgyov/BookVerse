@@ -1,39 +1,36 @@
-{#{% extends "base.html" %}#}
-
+{% extends "base.html" %}
+{% load static %}
 {% block title %}Genre Details{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/genres.css' %}">
+{% endblock %}
+
 {% block content %}
-<section class="details-section">
-    <div class="details-card">
-        <h1>{{ genre.name }}</h1>
+<section class="genre-detail-box">
+    <h1>{{ genre.name }}</h1>
 
-        {% if genre.description %}
-            <p><strong>Description:</strong> {{ genre.description }}</p>
-        {% else %}
-            <p><strong>Description:</strong> No biography available.</p>
-        {% endif %}
+    {% if genre.description %}
+        <p>{{ genre.description }}</p>
+    {% else %}
+        <p>No description available.</p>
+    {% endif %}
 
-        <div class="details-actions">
-            <a href="{% url 'genre_edit' genre.id %}" class="btn">Edit</a>
-            <a href="{% url 'genre_delete' genre.id %}" class="btn">Delete</a>
-            <a href="{% url 'genre_list' %}" class="btn">Back</a>
-        </div>
+    <h3 style="margin-top: 20px;">Books in this genre</h3>
+    <ul class="related-list">
+        {% for book in books %}
+            <li>
+                <a href="{% url 'book_detail' book.id %}">{{ book.title }}</a>
+            </li>
+        {% empty %}
+            <li>No books in this genre yet.</li>
+        {% endfor %}
+    </ul>
 
-        <h2>Books in this genre</h2>
-
-        {% if books %}
-            <ul>
-                {% for book in books %}
-                    <li>
-                        <a href="{% url 'book_detail' book.id %}">
-                            {{ book.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No books in this genre yet.</p>
-        {% endif %}
+    <div class="form-actions">
+        <a href="{% url 'genre_edit' genre.id %}" class="btn">Edit</a>
+        <a href="{% url 'genre_delete' genre.id %}" class="btn btn-secondary">Delete</a>
+        <a href="{% url 'genre_list' %}" class="btn btn-secondary">Back</a>
     </div>
 </section>
 {% endblock %}

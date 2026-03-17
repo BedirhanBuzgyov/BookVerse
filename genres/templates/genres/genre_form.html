@@ -1,20 +1,51 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Genre</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-<h1>Add Genre</h1>
+{% block title %}
+    {% if form.instance.pk %}
+        Edit Genre
+    {% else %}
+        Create Genre
+    {% endif %}
+{% endblock %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-</form>
+{% block content %}
+<section class="form-page">
+    <div class="form-card">
+        <h1>
+            {% if form.instance.pk %}
+                Edit Genre
+            {% else %}
+                Create Genre
+            {% endif %}
+        </h1>
 
-<p><a href="{% url 'genre_list' %}">← Back to list</a></p>
+        <form method="post">
+            {% csrf_token %}
 
-</body>
-</html>
+            <div class="form-group">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% if form.name.help_text %}
+                    <small class="helptext">{{ form.name.help_text }}</small>
+                {% endif %}
+                {{ form.name.errors }}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {% if form.description.help_text %}
+                    <small class="helptext">{{ form.description.help_text }}</small>
+                {% endif %}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Save</button>
+                <a href="{% url 'genre_list' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
