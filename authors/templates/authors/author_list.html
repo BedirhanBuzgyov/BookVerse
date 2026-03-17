@@ -6,11 +6,11 @@
 </head>
 <body>
     <h1>Authors</h1>
-    <a href="{% url "author_create"%}">Add</a>
+    <a href="{% url 'author_create' %}">Add</a>
         <ul>
             {% for author in authors %}
                 <li>
-                    <a href={% url "author_detail" author.id%}>
+                    <a href={% url 'author_detail' author.id%}>
                         {{ author.name }}
                     </a>
                 </li>
